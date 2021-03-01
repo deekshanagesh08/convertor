@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convertor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: convertor
+  template:
+    metadata:
+      labels:
+        app: convertor
+    spec:
+      containers:
+      - name: convertor
+        image: deeksha810/convertor:1.0.0
+        env:
+        - name: SPRING_CONVERTOR_URI
+          value: http://convertor.default.svc.cluster.local:8888
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        
